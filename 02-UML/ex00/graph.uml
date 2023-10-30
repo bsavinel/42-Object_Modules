@@ -1,0 +1,164 @@
+@startuml
+class LinkablePart
+{
++ void execute(float p_pression)
+}
+
+class Wheel
+{
++ void executeRotation(float p_force)
+}
+
+class Gear
+{
+- int demultiplier
+}
+
+class Singleton
+{
+}
+
+Gear --o GearLever
+
+Singleton ..> GearLever
+
+class GearLever
+{
++ Gear* activeGear()
++ void change()
+- Gear allGears[]
+- int level
+}
+
+class Transmission
+{
++ void activate(float p_force)
+- vector<Wheel *>
+}
+
+Wheel --o Transmission
+
+
+class  Crankshaft
+{
++ void receiveForce(float p_volume)
+}
+
+class ExplosionChamber
+{
++ void fill(float p_volume)
+}
+
+class Injector
+{
++ void execute(float p_pression)
+- ExplosionChamber explosionChamber
+}
+
+ExplosionChamber --* Injector
+
+LinkablePart --> Injector
+
+class Motor
+{
++ void connectToTransmission(Transmission* p_transmission)
+- Injector injector
+- ExplosionChamber explosionChamber
+- Crankshaft crankshaft
+}
+
+Crankshaft --* Motor
+ExplosionChamber --* Motor
+
+class Pedal 
+{
++ void setTarget(LinkablePart* p_part)
++ void use(float p_pression)
+- LinkablePart *linkablePart
+}
+
+LinkablePart --o Pedal
+
+class Direction
+{
++ void turn(float p_angle)
+- Wheel wheels[]
+}
+
+Wheel --o Direction
+
+class DAE
+{
++ void use(float p_angle)
+- Direction *direction
+- float force
+}
+
+Direction --o DAE
+
+class SteerWheel
+{
++ void turn(float p_angle)
+- DAE *dae
+}
+
+DAE --o SteerWheel 
+
+class Brake 
+{
++ void execute(float p_force)
++ void attackWheel(Wheel* p_wheel) 
+- Wheel *wheel
+}
+
+Wheel --o Brake
+
+class BrakeController
+{
++ void execute(float p_pression)
+- Brake brake[]
+}
+
+Brake --o BrakeController
+
+LinkablePart --> BrakeController
+
+class Cockpit
+{
++ void managePedal()
++ void managesetSteerWheel()
++ vois managesetGearLever()
+- Pedal pedal
+- SteerWheel steerWheel
+- GearLever gearLever
+}
+
+Pedal --* Cockpit
+SteerWheel --* Cockpit
+GearLever --* Cockpit
+
+class Electronics 
+{
+- DAE dae
+}
+
+DAE --* Electronics
+
+class Car
+{
+- BrakeController brakeController
+- Direction direction
+- Transmission transmission
+- Motor motor
+- Electronics electronics
+- Cockpit cockpit
+}
+
+BrakeController --* Car
+Direction --* Car
+Transmission --* Car
+Motor --* Car
+Electronics --* Car
+Cockpit --* Car
+
+@enduml
