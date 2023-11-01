@@ -1,5 +1,5 @@
 @startuml
-class LinkablePart
+interface LinkablePart
 {
 + void execute(float p_pression)
 }
@@ -14,7 +14,7 @@ class Gear
 - int demultiplier
 }
 
-class Singleton
+interface Singleton
 {
 }
 
@@ -57,7 +57,7 @@ class Injector
 
 ExplosionChamber --* Injector
 
-LinkablePart --> Injector
+LinkablePart ..> Injector
 
 class Motor
 {
@@ -121,7 +121,7 @@ class BrakeController
 
 Brake --o BrakeController
 
-LinkablePart --> BrakeController
+LinkablePart ..> BrakeController
 
 class Cockpit
 {
