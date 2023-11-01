@@ -1,39 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Tool.hpp                                           :+:      :+:    :+:   */
+/*   color.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/29 16:25:00 by bsavinel          #+#    #+#             */
-/*   Updated: 2023/11/01 11:45:56 by bsavinel         ###   ########.fr       */
+/*   Created: 2023/10/29 13:18:17 by bsavinel          #+#    #+#             */
+/*   Updated: 2023/10/29 13:18:18 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOOL_HPP
-# define TOOL_HPP
+#ifndef COLOR_H
+# define COLOR_H
 
-#include <string>
-
-struct Tool
-{
-	Tool();
-	virtual ~Tool();
-	virtual std::string getType() = 0;
-};
-
-struct Shovel: public Tool
-{
-	Shovel();
-	~Shovel();
-	virtual std::string getType();
-};
-
-struct Hammer: public Tool
-{
-	Hammer();
-	~Hammer();
-	virtual std::string getType();	
-};
+# define RED		"\033[0;31m"
+# define GREEN		"\033[0;32m"
+# define YELLOW		"\033[0;33m"
+# define BLUE		"\033[0;34m"
+# define PURPLE		"\033[0;35m"
+# define CYAN		"\033[0;36m"
+# define NO_COLOR	"\033[m"
 
 #endif

@@ -6,22 +6,43 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:59:49 by bsavinel          #+#    #+#             */
-/*   Updated: 2023/10/29 16:18:58 by bsavinel         ###   ########.fr       */
+/*   Updated: 2023/11/01 12:38:51 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Workshop.hpp"
+#include "color.hpp"
+
+Workshop::Workshop()
+{
+	std::cout << GREEN << "Worshop has build" << NO_COLOR << std::endl;
+}
+
+Workshop::~Workshop()
+{
+	for (;this->workers.begin() != this->workers.end();)
+	{
+		this->deleteWorker(*this->workers.begin());
+	}
+	std::cout << RED << "Worshop his destroy" << NO_COLOR << std::endl;
+}
 
 void Workshop::addWorker(Worker *newWorker)
 {
 	if(this->workers.insert(newWorker).second)
+	{
+		std::cout << YELLOW << "Add Worker in Workshop" << NO_COLOR << std::endl;
 		newWorker->addWorkshop(this);
+	}
 }
 	
 void Workshop::deleteWorker(Worker *deletedWorker)
 {
 	if(this->workers.erase(deletedWorker))
+	{
+		std::cout << YELLOW << "Remove Worker in Workshop" << NO_COLOR << std::endl;
 		deletedWorker->deleteWorkshop(this);
+	}
 }
 		
 void Workshop::executeWorkDay()

@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 16:00:22 by bsavinel          #+#    #+#             */
-/*   Updated: 2023/10/29 16:29:30 by bsavinel         ###   ########.fr       */
+/*   Updated: 2023/11/01 12:30:51 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ class Worker;
 
 struct Position
 {
+	Position(int X, int Y, int Z);
+	~Position();
 	int x;
 	int y;
 	int z;
@@ -29,6 +31,8 @@ struct Position
 
 struct Statistic
 {
+	Statistic(int Level, int Exp);
+	~Statistic();
 	int level;
 	int exp;
 };
@@ -49,7 +53,6 @@ class Worker {
 		void work();
 		
 	private:
-		Worker();
 		
 		std::set<Workshop *> workshops;
 		Position coordonnee;

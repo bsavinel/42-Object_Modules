@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 16:00:25 by bsavinel          #+#    #+#             */
-/*   Updated: 2023/10/29 16:31:16 by bsavinel         ###   ########.fr       */
+/*   Updated: 2023/11/01 12:13:16 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ class Workshop;
 class Workshop
 {
 	public:
+		Workshop();
+		~Workshop();
 		void addWorker(Worker *newWorker);
 		void deleteWorker(Worker *deletedWorker);
 
