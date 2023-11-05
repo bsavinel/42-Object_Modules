@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 17:20:01 by bsavinel          #+#    #+#             */
-/*   Updated: 2023/11/05 16:49:24 by bsavinel         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:17:53 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ class Ilogger
 class StreamLogger: public Ilogger
 {
 	public:
-		StreamLogger(std::ostream &stream): stream(stream) {}
+		StreamLogger(std::ostream &stream): stream(stream), header(NULL) {}
 		StreamLogger(std::ostream &stream, Header *header): stream(stream), header(header) {}
 		~StreamLogger() {}
 
 		virtual void write(std::string str)
 		{
 			if (header)
-				std::cout << header->getHeader();
-			std::cout << str << std::endl;	
+				stream << header->getHeader();
+			stream << str << std::endl;	
 		}
 	
 		void setHeader(Header *header)
@@ -54,12 +54,12 @@ class StreamLogger: public Ilogger
 		Header *header;
 };
 
-class FileLoger: public Ilogger
+class FileLogger: public Ilogger
 {
 	public:
-		FileLoger(int fd): fd(fd) {}
-		FileLoger(int fd, Header *header): fd(fd), header(header) {}
-		~FileLoger() {}
+		FileLogger(int fd): fd(fd), header(NULL) {}
+		FileLogger(int fd, Header *header): fd(fd), header(header) {}
+		~FileLogger() {}
 
 		virtual void write(std::string str)
 		{
