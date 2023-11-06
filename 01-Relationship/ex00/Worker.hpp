@@ -6,18 +6,18 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 16:00:22 by bsavinel          #+#    #+#             */
-/*   Updated: 2023/11/01 12:30:51 by bsavinel         ###   ########.fr       */
+/*   Updated: 2023/11/06 12:04:07 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WORKER_HPP
 # define WORKER_HPP
 
+class Worker;
+
 # include <set>
 # include <iostream>
-# include "Tool.hpp"
-
-class Worker;
+#include "Tool.hpp"
 #include "Workshop.hpp"
 
 struct Position

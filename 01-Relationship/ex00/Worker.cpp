@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:59:28 by bsavinel          #+#    #+#             */
-/*   Updated: 2023/11/01 12:39:27 by bsavinel         ###   ########.fr       */
+/*   Updated: 2023/11/06 12:16:46 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,11 @@ Statistic::Statistic(int Level, int Exp)
 Position::~Position()
 {
 	std::cout << RED << "Position has destroy" << NO_COLOR << std::endl;
-
 }
 
 Statistic::~Statistic()
 {
 	std::cout << RED << "Statistic has destroy" << NO_COLOR << std::endl;
-
 }
 
 Worker::Worker(Position pos, Statistic stat): coordonnee(pos), stat(stat), tool(NULL)
@@ -48,6 +46,8 @@ Worker::Worker(Position pos, Statistic stat): coordonnee(pos), stat(stat), tool(
 
 Worker::~Worker()
 {
+	if (this->tool)
+		this->tool->setWorker(NULL);
 	for (; this->workshops.begin() != this->workshops.end();)
 	{
 		this->deleteWorkshop(*this->workshops.begin());
@@ -57,23 +57,31 @@ Worker::~Worker()
 
 const Position &Worker::getCoordonnee()
 {
+	std::cout << GREEN << "getCoordonnee()" << NO_COLOR << std::endl;
 	return this->coordonnee;
 }
 
 const Statistic &Worker::getStat()
 {
+	std::cout << GREEN << "getStat()" << NO_COLOR << std::endl;
 	return this->stat;
 }
 
 void Worker::giveTool(Tool *toolGiven)
 {
+	Worker *pred = toolGiven->getWorker();
 	this->tool = toolGiven;
+	if (pred)
+		pred->takenAwayTool();
+	toolGiven->setWorker(this);
 	std::cout << YELLOW << "Worker get a tool" << NO_COLOR << std::endl;
 }
 
 Tool *Worker::takenAwayTool()
 {
 	Tool *tmp = this->tool;
+	if (this->tool)
+		this->tool->setWorker(NULL);
 	this->tool = NULL;
 	std::cout << YELLOW << "Worker lose his tool" << NO_COLOR << std::endl;
 	return tmp;
@@ -81,6 +89,7 @@ Tool *Worker::takenAwayTool()
 
 void Worker::addWorkshop(Workshop *newshop)
 {
+	std::cout << GREEN << "addWorkshop()" << NO_COLOR << std::endl;
 	if(this->workshops.insert(newshop).second)
 	{
 		std::cout << YELLOW << "Add Workshop in Worker" << NO_COLOR << std::endl;
@@ -90,6 +99,7 @@ void Worker::addWorkshop(Workshop *newshop)
 		
 void Worker::deleteWorkshop(Workshop *deletedshop)
 {
+	std::cout << GREEN << "deleteWorkshop()" << NO_COLOR << std::endl;
 	if(this->workshops.erase(deletedshop))
 	{
 		std::cout << YELLOW << "Remove Workshop in Worker" << NO_COLOR << std::endl;
@@ -104,10 +114,13 @@ void Worker::work()
 		std::cout << "I work anywhere" << std::endl;
 		return ;
 	}
-	std::cout << CYAN << "I work in this adress :" << BLUE;
+	if (this->tool)
+		std::cout << CYAN << "I work with my " << this->tool->getType() << CYAN << " in this adress :" << NO_COLOR;
+	else
+		std::cout << CYAN << "I work with no tool in this adress :" << NO_COLOR;
 	for (std::set<Workshop *>::iterator it = this->workshops.begin(); it != this->workshops.end(); it++)
 	{
-		std::cout << " " << *it;
+		std::cout << BLUE << " " << *it;
 	}
 	std::cout << NO_COLOR << std::endl;
 }

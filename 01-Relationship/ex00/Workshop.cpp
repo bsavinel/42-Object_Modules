@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:59:49 by bsavinel          #+#    #+#             */
-/*   Updated: 2023/11/01 12:38:51 by bsavinel         ###   ########.fr       */
+/*   Updated: 2023/11/06 12:10:48 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ Workshop::~Workshop()
 
 void Workshop::addWorker(Worker *newWorker)
 {
+	std::cout << GREEN << "addWorker()" << std::endl;
 	if(this->workers.insert(newWorker).second)
 	{
 		std::cout << YELLOW << "Add Worker in Workshop" << NO_COLOR << std::endl;
@@ -38,6 +39,7 @@ void Workshop::addWorker(Worker *newWorker)
 	
 void Workshop::deleteWorker(Worker *deletedWorker)
 {
+	std::cout << GREEN << "deleteWorker()" << std::endl;
 	if(this->workers.erase(deletedWorker))
 	{
 		std::cout << YELLOW << "Remove Worker in Workshop" << NO_COLOR << std::endl;
@@ -47,6 +49,7 @@ void Workshop::deleteWorker(Worker *deletedWorker)
 		
 void Workshop::executeWorkDay()
 {
+	std::cout << GREEN << "executeWorkDay()" << std::endl;
 	for (std::set<Worker *>::iterator it = this->workers.begin(); it != this->workers.end(); it++)
 	{
 		(*it)->work();

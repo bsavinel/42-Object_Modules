@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 14:11:19 by bsavinel          #+#    #+#             */
-/*   Updated: 2023/11/01 12:31:13 by bsavinel         ###   ########.fr       */
+/*   Updated: 2023/11/06 12:03:32 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int main()
 	Worker bob(Position(10,5,4),Statistic(10,5));
 
 	tool = new Shovel();
+	bob.giveTool(tool);
 	tom.giveTool(tool);
 	tool = new Hammer();
 	bob.giveTool(tool);
