@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:59:28 by bsavinel          #+#    #+#             */
-/*   Updated: 2023/11/06 12:16:46 by bsavinel         ###   ########.fr       */
+/*   Updated: 2023/11/07 13:06:51 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,13 @@ void Worker::work()
 		return ;
 	}
 	if (this->tool)
-		std::cout << CYAN << "I work with my " << this->tool->getType() << CYAN << " in this adress :" << NO_COLOR;
+	{
+		std::cout << CYAN << "I  ";
+		this->tool->use();
+	}
 	else
-		std::cout << CYAN << "I work with no tool in this adress :" << NO_COLOR;
+		std::cout << CYAN << "I work with no tool" << NO_COLOR << std::endl;
+	std::cout << CYAN << "I work in this adress :" << NO_COLOR;
 	for (std::set<Workshop *>::iterator it = this->workshops.begin(); it != this->workshops.end(); it++)
 	{
 		std::cout << BLUE << " " << *it;

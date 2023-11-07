@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 18:24:12 by bsavinel          #+#    #+#             */
-/*   Updated: 2023/11/06 12:17:48 by bsavinel         ###   ########.fr       */
+/*   Updated: 2023/11/07 13:07:14 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 
 Tool::Tool(): worker(NULL)
 {
-	std::cout << GREEN << "Tool has created type is : ";
+	std::cout << GREEN << "Tool has beencreated, his type is : ";
 }
 
 Tool::~Tool()
 {
 	if (this->worker)
 		worker->takenAwayTool();
-	std::cout << RED << " tool has destroy" << NO_COLOR << std::endl;
+	std::cout << RED << "Tool has been destroy" << NO_COLOR << std::endl;
 }
 
 void Tool::setWorker(Worker *worker)
@@ -58,14 +58,12 @@ Hammer::~Hammer()
 	std::cout << PURPLE << "Hammer" ;
 }
 
-std::string Shovel::getType()
+void Shovel::use()
 {
-	std::cout << GREEN << "getType()" << NO_COLOR << std::endl;
-	return "Shovel";
+	std::cout << CYAN << "use a shovel" << NO_COLOR << std::endl;
 }
 
-std::string Hammer::getType()
+void Hammer::use()
 {
-	std::cout << GREEN << "getType()" << NO_COLOR << std::endl;
-	return "Hammer";
+	std::cout << CYAN << "use a hammer" << NO_COLOR << std::endl;
 }

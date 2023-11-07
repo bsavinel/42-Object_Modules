@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 16:25:00 by bsavinel          #+#    #+#             */
-/*   Updated: 2023/11/06 12:04:30 by bsavinel         ###   ########.fr       */
+/*   Updated: 2023/11/07 13:07:24 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ struct Tool
 	public:
 		Tool();
 		virtual ~Tool();
-		virtual std::string getType() = 0;
+		virtual void use() = 0;
 	private:
 		friend class Worker;
 		void setWorker(Worker *worker);
@@ -35,14 +35,14 @@ struct Shovel: public Tool
 {
 	Shovel();
 	~Shovel();
-	virtual std::string getType();
+	virtual void use();
 };
 
 struct Hammer: public Tool
 {
 	Hammer();
 	~Hammer();
-	virtual std::string getType();	
+	virtual void use();	
 };
 
 #endif

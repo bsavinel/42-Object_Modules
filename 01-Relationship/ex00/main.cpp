@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 14:11:19 by bsavinel          #+#    #+#             */
-/*   Updated: 2023/11/06 12:03:32 by bsavinel         ###   ########.fr       */
+/*   Updated: 2023/11/07 13:09:14 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,48 @@
 #include "Worker.hpp"
 #include "Workshop.hpp"
 
-//TODO Mettre des message dans les constructeur car demandere par le sujet et plus facile que de print des adresses pour faire des trucs chelou
+#define NL std::cout << std::endl;
 
 int main()
 {
 	Workshop bricoMarche;
+	NL
 	Workshop LeRoyMerlin;
+	NL
 	Tool *tool;
+	NL
 	Worker tom(Position(10,5,4),Statistic(10,5));
+	NL
 	Worker bob(Position(10,5,4),Statistic(10,5));
+	NL
 
+	NL
 	tool = new Shovel();
+	NL
 	bob.giveTool(tool);
+	NL
 	tom.giveTool(tool);
+	NL
 	tool = new Hammer();
+	NL
 	bob.giveTool(tool);
+	NL
 	tom.addWorkshop(&bricoMarche);
+	NL
 	tom.addWorkshop(&LeRoyMerlin);
+	NL
 	bob.addWorkshop(&bricoMarche);
+	NL
 	bricoMarche.executeWorkDay();
+	NL
 	tom.deleteWorkshop(&LeRoyMerlin);
+	NL
 	tom.work();
+	NL
 	delete tom.takenAwayTool();
+	NL
 	delete bob.takenAwayTool();
+	NL
 	
 	return 0;
 }
