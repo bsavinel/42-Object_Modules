@@ -1,5 +1,5 @@
 @startuml
-interface LinkablePart
+abstract LinkablePart
 {
 + void execute(float p_pression)
 }
@@ -18,9 +18,9 @@ interface Singleton
 {
 }
 
-Gear --o GearLever
+Gear --* GearLever
 
-Singleton ..> GearLever
+Singleton <|.. GearLever
 
 class GearLever
 {
@@ -38,26 +38,31 @@ class Transmission
 
 Wheel --o Transmission
 
-
 class  Crankshaft
 {
 + void receiveForce(float p_volume)
+- Transmission *transmission
 }
+
+Transmission --o Crankshaft
 
 class ExplosionChamber
 {
 + void fill(float p_volume)
+- Crankshaft *crankshaft
 }
+
+Crankshaft --o ExplosionChamber
 
 class Injector
 {
 + void execute(float p_pression)
-- ExplosionChamber explosionChamber
+- ExplosionChamber *explosionChamber
 }
 
-ExplosionChamber --* Injector
+ExplosionChamber --o Injector
 
-LinkablePart ..> Injector
+LinkablePart <|-- Injector
 
 class Motor
 {
@@ -69,6 +74,7 @@ class Motor
 
 Crankshaft --* Motor
 ExplosionChamber --* Motor
+Injector --* Motor
 
 class Pedal 
 {
@@ -85,7 +91,7 @@ class Direction
 - Wheel wheels[]
 }
 
-Wheel --o Direction
+Wheel --* Direction
 
 class DAE
 {
@@ -119,9 +125,9 @@ class BrakeController
 - Brake brake[]
 }
 
-Brake --o BrakeController
+Brake --* BrakeController
 
-LinkablePart ..> BrakeController
+LinkablePart <|-- BrakeController
 
 class Cockpit
 {
@@ -160,5 +166,4 @@ Transmission --* Car
 Motor --* Car
 Electronics --* Car
 Cockpit --* Car
-
 @enduml
