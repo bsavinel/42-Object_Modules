@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 16:48:17 by bsavinel          #+#    #+#             */
-/*   Updated: 2023/11/05 17:11:30 by bsavinel         ###   ########.fr       */
+/*   Updated: 2023/11/12 16:50:06 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,16 @@
 #include <ctime>
 #include <iomanip>
 
-class Header
+class IHeader
 {
 	public:
-		Header() {}
-		virtual ~Header() {}
+		IHeader() {}
+		virtual ~IHeader() {}
 
 		virtual std::string getHeader() const = 0;
-	private:
-		std::string header;
 };
 
-class DateHeader: public Header
+class DateHeader: public IHeader
 {
 	public:
 		DateHeader() {}
@@ -44,7 +42,7 @@ class DateHeader: public Header
 		}
 };
 
-class StringHeader: public Header
+class StringHeader: public IHeader
 {
 	public:
 		StringHeader(std::string header): header(header) {}

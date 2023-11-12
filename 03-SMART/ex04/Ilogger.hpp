@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 17:20:01 by bsavinel          #+#    #+#             */
-/*   Updated: 2023/11/05 17:17:53 by bsavinel         ###   ########.fr       */
+/*   Updated: 2023/11/12 17:08:28 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <string>
+#include <vector>
 #include "Header.hpp"
 
 class Ilogger
@@ -26,65 +27,62 @@ class Ilogger
 		virtual void write(std::string) = 0;
 };
 
-class StreamLogger: public Ilogger
+class IModularLoger: public Ilogger
 {
 	public:
-		StreamLogger(std::ostream &stream): stream(stream), header(NULL) {}
-		StreamLogger(std::ostream &stream, Header *header): stream(stream), header(header) {}
-		~StreamLogger() {}
+		IModularLoger() {}
+		IModularLoger(std::vector<IHeader *> modules): modules(modules) {}
+		virtual ~IModularLoger() {}
+		
 
-		virtual void write(std::string str)
+		void write(std::string str)
 		{
-			if (header)
-				stream << header->getHeader();
-			stream << str << std::endl;	
+			std::string output;
+
+			for (std::vector<IHeader *>::iterator it = modules.begin(); it != modules.end(); it++)
+			{
+				output += (*it)->getHeader();
+			}
+			output += str;
+			_write(output);
 		}
 	
-		void setHeader(Header *header)
-		{
-			this->header = header;
-		}
-
-		void removeHeader()
-		{
-			this->header = NULL;
-		}
-	private:
-		std::ostream &stream;
-		Header *header;
+	protected:
+		virtual void _write(std::string &output) = 0;
+		std::vector<IHeader *> modules;
+			
 };
 
-class FileLogger: public Ilogger
+class StreamLogger: public IModularLoger
 {
 	public:
-		FileLogger(int fd): fd(fd), header(NULL) {}
-		FileLogger(int fd, Header *header): fd(fd), header(header) {}
+		StreamLogger(std::ostream &stream): stream(stream) {}
+		StreamLogger(std::ostream &stream, std::vector<IHeader *> modules): IModularLoger(modules), stream(stream) {}
+		~StreamLogger() {}
+
+	protected:
+		void _write(std::string &str)
+		{
+			stream << str << std::endl;
+		}
+		
+		std::ostream &stream;
+};
+
+class FileLogger: public IModularLoger
+{
+	public:
+		FileLogger(int fd): fd(fd) {}
+		FileLogger(int fd, std::vector<IHeader *> modules): IModularLoger(modules), fd(fd) {}
 		~FileLogger() {}
 
-		virtual void write(std::string str)
+	protected:
+		void _write(std::string &str)
 		{
-			if (header)
-				dprintf(fd, "%s", header->getHeader().c_str());
 			dprintf(fd, "%s\n", str.c_str());
 		}
-
-		void setFd(int fd)
-		{
-			this->fd = fd;
-		}
-
-		void setHeader(Header *header)
-		{
-			this->header = header;
-		}
-
-		void removeHeader()
-		{
-			this->header = NULL;
-		}
-	private:
+		
 		int fd;
-		Header *header;
 };
 
 #endif
