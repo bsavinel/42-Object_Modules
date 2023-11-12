@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:09:27 by bsavinel          #+#    #+#             */
-/*   Updated: 2023/11/04 16:58:50 by bsavinel         ###   ########.fr       */
+/*   Updated: 2023/11/12 17:29:03 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,22 @@
 class TempWorker: public Employee
 {
 	public:
-		TempWorker(int hourlyValue): Employee(hourlyValue) {}
+		TempWorker(std::string name, int hourlyValue): Employee(name, hourlyValue), time_work(0) {}
 		~TempWorker() {}
+		
 		int executeWorkday()
 		{
+			time_work += 7;
 			return (this->hourlyValue * 7);
 		}
+
+		const int &getTimeWork()
+		{
+			return (this->time_work);
+		}
+
+	protected:
+		int time_work;
 };
 
 #endif
