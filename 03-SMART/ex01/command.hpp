@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 13:13:08 by bsavinel          #+#    #+#             */
-/*   Updated: 2023/11/02 16:10:40 by bsavinel         ###   ########.fr       */
+/*   Updated: 2023/11/12 15:51:17 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ class Command
 			{
 				cout += it->second.second * it->second.first;
 			}
-			return cout;
+			return applyDiscount(cout);
 		}
 	
 		int getID() { return this->ID; }
@@ -51,6 +51,11 @@ class Command
 		int ID;
 		tm date;
 		std::string client;
+
+		virtual float applyDiscount(float price)
+		{
+			return price;
+		}
 		
 };
 

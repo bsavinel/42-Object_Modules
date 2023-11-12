@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 13:13:13 by bsavinel          #+#    #+#             */
-/*   Updated: 2023/11/02 16:11:16 by bsavinel         ###   ########.fr       */
+/*   Updated: 2023/11/12 15:49:48 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,14 @@
 
 #include "command.hpp"
 
-class ThuesdayDiscount: private Command
+class ThuesdayDiscount: public Command
 {
 	public:
 		ThuesdayDiscount(const Command &cmd): Command(cmd) {}
 		~ThuesdayDiscount() {}
 
-		float get_total_price()
+		float applyDiscount(float price)
 		{
-			float price = Command::get_total_price();
 			if (this->getDate().tm_wday == 2)
 				return price - (price * 0.10);
 			return price;

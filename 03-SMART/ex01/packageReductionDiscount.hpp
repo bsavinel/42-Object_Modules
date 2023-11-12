@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 13:13:11 by bsavinel          #+#    #+#             */
-/*   Updated: 2023/11/01 14:01:43 by bsavinel         ###   ########.fr       */
+/*   Updated: 2023/11/12 15:49:43 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,14 @@
 
 #include "command.hpp"
 
-class PackageReductionDiscount: private Command
+class PackageReductionDiscount: public Command
 {
 	public:
 		PackageReductionDiscount(const Command &cmd): Command(cmd) {}
 		~PackageReductionDiscount() {}
 
-		float get_total_price()
+		float applyDiscount(float price)
 		{
-			float price = Command::get_total_price();
 			if (price > 150)
 				return price - 10;
 			return price;
